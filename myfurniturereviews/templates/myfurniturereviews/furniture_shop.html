@@ -1,0 +1,16 @@
+{% extends "myfurniturereviews/base.html" %}
+
+{% block content %}
+<h1>
+  FurnitureShop
+  {% if user %}(<a href="{% url 'myfurnitureshop: furnitureshop_create' %}">add</a>){% endif %}
+</h1>
+
+<ul>
+  {% for restaurant in latest_restaurant_list %}
+    <li><a href="{% url 'myfurnitureshop:furnitureshop_detail' furnitureshop.id %}">
+    {{ furnitureshop.name }}</a></li>
+  {% empty %}<li>Sorry, no furnitureshops registered yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
