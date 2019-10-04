@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib import admin
 from myfurniturereviews.models import FurnitureShop
@@ -12,14 +12,21 @@ from myfurniturereviews.models import FurnitureReview
 from myfurniturereviews.forms import FurnitureShopForm, FurnituresForm
 
 class FurnitureDetail(DetailView):
+  model = Furnitures
+  slug_field = 'shop_slug'
+  template_name = 'myfurniturereviews/furnitures_detail.html'
+
+
+class FurnitureShopDetail(TemplateView):
   model = FurnitureShop
-  template_name = 'myrestaurants/furnitureshop_detail.html'
+  template_name = 'myfurniturereviews/furnitureshop_detail.html'
 
   def get_context_data(self, **kwargs):
-    context = super(RestaurantDetail, self).get_context_data(**kwargs)
-    context['RATING_CHOICES'] = RestaurantReview.RATING_CHOICES
+    context = super(FurnitureShopDetail, self).get_context_data(**kwargs)
+    context['RATING_CHOICES'] = FurnitureReview.RATING_CHOICES
     return context
-
+  def __str__(self):
+  	print("furnitureshopdetails")
 class FurnitureShopCreate(CreateView):
   model = FurnitureShop
   template_name = 'myrfurnitureshop/form.html'
@@ -28,7 +35,7 @@ class FurnitureShopCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super(FurnitureShopCreate, self).form_valid(form)
-
+  
 class FurnituresCreate(CreateView):
   model = Furnitures
   template_name = 'myrfurnitureshop/form.html'

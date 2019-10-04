@@ -1,0 +1,28 @@
+{% extends "myfurniturereviews/base.html" %}
+
+{% block content %}
+
+<h1>
+  {{ furnitures.name }}
+  {% if user == furnitures.user %}
+    (<a href="{% url 'myrestaurants:dish_edit' furnitures.furnitureshop.id furnitures.id %}">edit</a>)
+  {% endif %}
+</h1>
+
+<p>{{ furnitures.description }}</p>
+
+{% if furnitures.image %}
+  <p><img src="{{ dish.image.url }}"/></p>
+{% endif %}
+
+<p>Served by 
+  <a href="{% url 'myfurnitures:furnitureshop_detail' furnitures.furnitureshop.id %}">
+    {{ furnitures.furnitureshop.name}}
+  </a>
+</p>
+
+{% endblock %}
+
+{% block footer %}
+  Created by {{ furnitures.user }} on {{ furnitures.date }}
+{% endblock %}

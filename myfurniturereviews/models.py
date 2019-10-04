@@ -23,6 +23,7 @@ class FurnitureShop(models.Model):
         return u"%s" % self.name
 
 class Furnitures(models.Model):
+    image = models.ImageField(upload_to="myfurniturereviews", blank=True, null=True)
     name = models.TextField()
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField('Euro amount', max_digits=8, decimal_places=2, blank=True, null=True)
